@@ -1,0 +1,88 @@
+<view class="page">
+  <!-- 实时取景：全屏相机 -->
+  <camera
+    wx:if="{{!cameraDenied}}"
+    class="camera"
+    device-position="{{devicePosition}}"
+    flash="off"
+    frame-size="medium"
+    resolution="medium"
+    binderror="onCameraError"
+  />
+
+  <!-- 相机不可用：纯环境参数模式（6.4 降级） -->
+  <view wx:else class="camera-fallback">
+    <text class="fallback-icon">📷</text>
+    <text class="fallback-text">相机权限未开启\n已切换为纯环境参数模式</text>
+    <button class="btn-ghost fallback-btn" size="mini" bindtap="openCameraSetting">去开启权限</button>
+  </view>
+
+  <!-- 顶部环境信息栏 -->
+  <view class="env-bar" style="padding-top: {{statusBarHeight + 8}}px;">
+    <text class="env-main">{{envText}}</text>
+    <text class="env-sub" wx:if="{{envSourceText}}">{{envSourceText}}</text>
+  </view>
+
+  <!-- 模式/覆盖提示横幅 -->
+  <view class="banner" wx:if="{{modeBanner}}">
+    <text class="banner-text">{{modeBanner}}</text>
+  </view>
+  <view class="banner banner-accent" wx:if="{{overrideName}}">
+    <text class="banner-text">已应用预设「{{overrideName}}」，点击右侧 ✕ 恢复实时推荐</text>
+    <text class="banner-close" bindtap="clearOverride">✕</text>
+  </view>
+
+  <!-- 右侧操作栏 -->
+  <view class="side-bar">
+    <view class="side-btn {{locked ? 'side-btn-active' : ''}}" bindtap="toggleLock">
+      <text class="side-icon">{{locked ? '🔒' : '🔓'}}</text>
+      <text class="side-label">{{locked ? '已锁定' : '锁定'}}</text>
+    </view>
+    <view class="side-btn" bindtap="switchCamera">
+      <text class="side-icon">🔄</text>
+      <text class="side-label">翻转</text>
+    </view>
+    <view class="side-btn" bindtap="goPresets">
+      <text class="side-icon">📖</text>
+      <text class="side-label">预设</text>
+    </view>
+    <view class="side-btn" bindtap="goHistory">
+      <text class="side-icon">🕘</text>
+      <text class="side-label">历史</text>
+    </view>
+    <view class="side-btn" bindtap="goSettings">
+      <text class="side-icon">⚙️</text>
+      <text class="side-label">设置</text>
+    </view>
+  </view>
+
+  <!-- 底部：快门 + 悬浮参数栏 -->
+  <view class="bottom-area">
+    <view class="shutter" bindtap="takeShot">
+      <view class="shutter-ring"><view class="shutter-core"></view></view>
+    </view>
+
+    <view class="param-bar panel" bindtap="onParamBarTap">
+      <view class="param-item">
+        <text class="param-value">{{isoText}}</text>
+        <text class="param-label">ISO</text>
+      </view>
+      <view class="param-divider"></view>
+      <view class="param-item">
+        <text class="param-value">{{shutterText}}</text>
+        <text class="param-label">快门</text>
+      </view>
+      <view class="param-divider"></view>
+      <view class="param-item">
+        <text class="param-value">{{apertureText}}</text>
+        <text class="param-label">光圈</text>
+      </view>
+      <view class="param-divider"></view>
+      <view class="param-item">
+        <text class="param-value {{evCompAdjusted ? 'text-accent' : ''}}">{{evCompText}}</text>
+        <text class="param-label">补偿</text>
+      </view>
+    </view>
+    <text class="param-hint">{{paramsHintText}}</text>
+  </view>
+</view>

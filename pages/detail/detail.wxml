@@ -1,0 +1,51 @@
+<view class="page">
+  <view wx:if="{{!loaded}}" class="empty-tip">参数计算中，请返回取景页稍候…</view>
+
+  <block wx:if="{{loaded}}">
+    <!-- 警告提示 -->
+    <view class="warnings" wx:if="{{warnings.length}}">
+      <view class="warn-item" wx:for="{{warnings}}" wx:key="*this">⚠️ {{item}}</view>
+    </view>
+
+    <!-- 参数列表 -->
+    <view class="card param-card" wx:for="{{items}}" wx:key="key">
+      <view class="param-head">
+        <view class="param-name-wrap">
+          <text class="card-title">{{item.label}}</text>
+          <text class="card-sub">{{item.desc}}</text>
+        </view>
+        <text class="param-value">{{item.value}}</text>
+      </view>
+
+      <!-- 微调滑块 -->
+      <view class="slider-wrap" wx:if="{{item.slider}}">
+        <text class="slider-bound">{{item.slider.minLabel}}</text>
+        <slider
+          class="slider"
+          min="{{item.slider.min}}"
+          max="{{item.slider.max}}"
+          step="{{item.slider.step}}"
+          value="{{item.slider.value}}"
+          activeColor="#f5c542"
+          backgroundColor="rgba(255,255,255,0.15)"
+          block-size="20"
+          data-key="{{item.key}}"
+          bindchanging="onSliderChanging"
+          bindchange="onSliderChange"
+        />
+        <text class="slider-bound">{{item.slider.maxLabel}}</text>
+      </view>
+
+      <view class="reason">
+        <text class="reason-tag">推荐理由</text>
+        <text class="reason-text">{{item.reason}}</text>
+      </view>
+    </view>
+
+    <!-- 底部操作 -->
+    <view class="actions">
+      <button class="btn-ghost action-btn" bindtap="restoreRecommend">恢复推荐值</button>
+      <button class="btn-primary action-btn" bindtap="savePreset">保存为预设</button>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,9 @@
+{
+  "desc": "智能相机参数推荐小程序",
+  "rules": [
+    {
+      "action": "disallow",
+      "page": "*"
+    }
+  ]
+}

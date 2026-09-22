@@ -1,0 +1,43 @@
+.page { padding: 24rpx 0 60rpx; }
+
+.record {
+  display: flex;
+  align-items: center;
+}
+.record-thumb {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 12rpx;
+  background: #26262a;
+  flex-shrink: 0;
+  margin-right: 24rpx;
+}
+.record-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.record-params {
+  font-size: 26rpx;
+  color: #f5c542;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.record-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8rpx;
+}
+.record-apply {
+  padding: 0 28rpx;
+  line-height: 2.2;
+}
+
+.mono {
+  font-family: 'SF Mono', Menlo, Consolas, monospace;
+}
+
+.footer-action { padding: 16rpx 24rpx; }

@@ -1,0 +1,22 @@
+.page { padding: 24rpx 0 60rpx; }
+
+.preset-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.preset-actions {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+}
+.preset-apply {
+  padding: 0 28rpx;
+  margin-right: 8rpx;
+  line-height: 2.2;
+}
+.mono {
+  font-family: 'SF Mono', Menlo, Consolas, monospace;
+}
+
+.footer-action { padding: 16rpx 24rpx; }

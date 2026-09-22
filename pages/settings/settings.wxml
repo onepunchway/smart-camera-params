@@ -1,0 +1,79 @@
+<view class="page">
+  <!-- 手动环境 -->
+  <view class="card section">
+    <view class="section-head">
+      <text class="card-title">手动环境模式</text>
+      <switch checked="{{manualEnabled}}" color="#f5c542" bindchange="onToggleManual"/>
+    </view>
+    <text class="card-sub">无定位/室内场景开启：手动指定城市、天气与时间，环境数据不再自动获取</text>
+
+    <view class="form-row" wx:if="{{manualEnabled}}">
+      <text class="form-label">城市</text>
+      <input
+        class="form-input"
+        value="{{city}}"
+        placeholder="如：北京（留空则不查询天气）"
+        placeholder-class="input-placeholder"
+        bindblur="onCityInput"
+      />
+      <button class="btn-ghost form-btn" size="mini" bindtap="testCity">验证</button>
+    </view>
+
+    <view class="form-row" wx:if="{{manualEnabled}}">
+      <text class="form-label">天气</text>
+      <picker mode="selector" range="{{weatherNames}}" value="{{weatherIndex}}" bindchange="onWeatherPick">
+        <view class="picker-value">{{weatherNames[weatherIndex]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-row" wx:if="{{manualEnabled}}">
+      <text class="form-label">时间</text>
+      <picker mode="date" value="{{dateValue}}" start="2020-01-01" end="2030-12-31" bindchange="onDatePick">
+        <view class="picker-value">{{dateValue}}</view>
+      </picker>
+      <picker mode="time" value="{{timeValue}}" bindchange="onTimePick">
+        <view class="picker-value">{{timeValue}}</view>
+      </picker>
+      <button class="btn-danger-text" size="mini" bindtap="clearManualTime" wx:if="{{hasManualTime}}">用系统时间</button>
+    </view>
+  </view>
+
+  <!-- 画面分析 -->
+  <view class="card section">
+    <view class="section-head">
+      <text class="card-title">画面分析频率</text>
+      <picker mode="selector" range="{{intervalNames}}" value="{{intervalIndex}}" bindchange="onIntervalPick">
+        <view class="picker-value">{{intervalNames[intervalIndex]}}</view>
+      </picker>
+    </view>
+    <text class="card-sub">帧采样间隔。低端设备卡顿时可调大（文档 6.4：性能不足自动降频至3秒/帧）</text>
+  </view>
+
+  <!-- 设备校准 -->
+  <view class="card section">
+    <view class="section-head">
+      <text class="card-title">设备曝光校准</text>
+      <text class="cal-value">{{calibrationText}}</text>
+    </view>
+    <slider
+      min="-1" max="1" step="0.1"
+      value="{{calibrationEv}}"
+      activeColor="#f5c542"
+      backgroundColor="rgba(255,255,255,0.15)"
+      block-size="20"
+      bindchanging="onCalChanging"
+      bindchange="onCalChange"
+    />
+    <text class="card-sub">不同手机存在曝光偏移。校准方法：对准灰卡或均匀白墙充满画面，若推荐参数实拍偏暗则调"+"、偏亮则调"−"</text>
+  </view>
+
+  <!-- 关于 -->
+  <view class="card section">
+    <view class="section-head">
+      <text class="card-title">关于</text>
+      <text class="card-sub">V{{version}}</text>
+    </view>
+    <text class="card-sub">智能相机参数推荐 · 环境感知 + 画面分析生成专业拍摄参数</text>
+    <button class="btn-ghost feedback-btn" size="mini" open-type="feedback">意见反馈</button>
+  </view>
+</view>

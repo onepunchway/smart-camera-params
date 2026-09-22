@@ -1,0 +1,19 @@
+<view class="page">
+  <view wx:if="{{!presets.length}}" class="empty-tip">还没有预设\n在参数详情页或本页保存当前参数即可创建</view>
+
+  <view class="card" wx:for="{{presets}}" wx:key="id">
+    <view class="preset-head">
+      <text class="card-title">{{item.name}}</text>
+      <view class="preset-actions">
+        <button class="btn-primary preset-apply" size="mini" data-id="{{item.id}}" bindtap="applyPreset">应用</button>
+        <button class="btn-danger-text" size="mini" data-id="{{item.id}}" bindtap="renamePreset">改名</button>
+        <button class="btn-danger-text" size="mini" data-id="{{item.id}}" bindtap="deletePreset">删除</button>
+      </view>
+    </view>
+    <text class="card-sub mono">{{item.summary}}</text>
+  </view>
+
+  <view class="footer-action" wx:if="{{canSaveCurrent}}">
+    <button class="btn-ghost" bindtap="saveCurrent">保存当前参数为新预设</button>
+  </view>
+</view>

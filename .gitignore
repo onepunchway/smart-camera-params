@@ -1,0 +1,5 @@
+# 微信开发者工具的本机私有配置（编辑器设置，按官方约定不入库）
+project.private.config.json
+
+# AI 编码工具生成的实现计划（过程产物，非交付物）
+.zcode/plans/

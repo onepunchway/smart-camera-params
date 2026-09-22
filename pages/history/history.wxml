@@ -1,0 +1,27 @@
+<view class="page">
+  <view wx:if="{{!records.length}}" class="empty-tip">还没有拍摄记录\n在取景页点击快门即可记录当前参数与环境</view>
+
+  <block wx:if="{{records.length}}">
+    <view class="card record" wx:for="{{records}}" wx:key="id">
+      <image
+        wx:if="{{item.thumb}}"
+        class="record-thumb"
+        src="{{item.thumb}}"
+        mode="aspectFill"
+      />
+      <view class="record-info">
+        <text class="mono record-params">{{item.paramsText}}</text>
+        <text class="card-sub">{{item.envText}}</text>
+        <text class="card-sub">{{item.timeText}}</text>
+      </view>
+      <view class="record-actions">
+        <button class="btn-primary record-apply" size="mini" data-id="{{item.id}}" bindtap="reuseRecord">复用</button>
+        <button class="btn-danger-text" size="mini" data-id="{{item.id}}" bindtap="deleteRecord">删除</button>
+      </view>
+    </view>
+
+    <view class="footer-action">
+      <button class="btn-ghost" bindtap="clearAll">清空全部记录</button>
+    </view>
+  </block>
+</view>
